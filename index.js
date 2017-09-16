@@ -21,7 +21,7 @@ function Microcomponent (opts) {
   this._log.debug('initialized')
 
   if (opts.pure) {
-    this._update = function (props) {
+    this.update = function (props) {
       return !shallowEqual(props, this.props)
     }
   }
@@ -33,7 +33,7 @@ Microcomponent.prototype.on = function (eventname, handler) {
   assert.equal(typeof handler, 'function', 'microcomponent.on handler should be type function')
 
   if (eventname === 'render') {
-    this._render = function () {
+    this.createElement = function () {
       return handler.call(this)
     }
     var render = this.render
@@ -61,7 +61,7 @@ Microcomponent.prototype.on = function (eventname, handler) {
       return ret
     }
   } else {
-    this['_' + eventname] = function () {
+    this[eventname] = function () {
       var len = arguments.length
       var args = new Array(len)
       for (var i = 0; i < len; i++) args[i] = arguments[i]
@@ -81,5 +81,5 @@ Microcomponent.prototype.emit = function (eventname) {
   var len = arguments.length - 1
   var args = new Array(len)
   for (var i = 0; i < len; i++) args[i] = arguments[i + 1]
-  return this['_' + eventname].apply(this, args)
+  return this[eventname].apply(this, args)
 }
