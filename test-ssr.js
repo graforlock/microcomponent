@@ -1,10 +1,9 @@
-var nanomorph = require('nanomorph')
 var microcomponent = require('.')
 var test = require('tape')
 var html = require('bel')
 
 test('integration: client', function (t) {
-  t.plan(3)
+  t.plan(5)
 
   function PlainComponent () {
     var component = microcomponent('plaincomponent')
@@ -55,11 +54,11 @@ test('integration: client', function (t) {
   function update () {
     t.ok(true, 'update')
     var newElement = render()
-    nanomorph(el, newElement)
+    t.equal(/count is 1/.test(newElement.toString()), true, 'updated')
   }
 
   var el = render()
-  document.body.appendChild(el)
+  t.equal(/count is 0/.test(el.toString()), true, 'rendered')
 
   setTimeout(function () {
     state.count++

@@ -43,7 +43,7 @@ Microcomponent.prototype.on = function (eventname, handler) {
       var ret = render.call(this, props)
       var newElement = this._element
 
-      if (oldElement) {
+      if (oldElement && oldElement.attributes) {
         var oldAttrs = oldElement.attributes
         var attr, name
         for (var i = 0, len = oldAttrs.length; i < len; i++) {
