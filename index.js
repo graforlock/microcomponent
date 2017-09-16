@@ -33,7 +33,9 @@ Microcomponent.prototype.on = function (eventname, handler) {
   assert.equal(typeof handler, 'function', 'microcomponent.on handler should be type function')
 
   if (eventname === 'render') {
-    this.createElement = function () {
+    this.createElement = function (props) {
+      this.oldProps = this.props
+      this.props = props
       return handler.call(this)
     }
     var render = this.render
