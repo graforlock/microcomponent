@@ -2,7 +2,7 @@ var microcomponent = require('.')
 var test = require('tape')
 var html = require('bel')
 
-test('integration: client', function (t) {
+test('integration: server', function (t) {
   t.plan(5)
 
   function PlainComponent () {
